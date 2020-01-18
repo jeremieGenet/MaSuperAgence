@@ -1,0 +1,2 @@
+commande php bin/console debug:autowiring  
+    = Permet de lister les classes que l'on peut injecter comme dépendance (dans nos classe ou fonctions)

@@ -1,0 +1,5 @@
+# Fichier qui sert à définir les routes de l'application (mais dans la notre on utilise les annotation pour le rooting)
+
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
