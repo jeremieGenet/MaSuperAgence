@@ -3,3 +3,7 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+# Route pour la déconnexion (qui ne necessite pas de controlleur, ni de vue)
+logout:
+  path: /logout

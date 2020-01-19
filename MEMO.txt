@@ -3,3 +3,5 @@ commandes
         = Permet de lister les classes que l'on peut injecter comme dépendance (dans nos classe ou fonctions)
     php bin/console make:form
         = Création d'un formulaire (le nom doit obligatoirement finir par "Type"), puis l'entité à laquelle il sera rattaché
+    php bin/console doctrine:fixture:load -apend
+        = Validation d'une fixture (pour remplir la bdd) mais le drapeau '--append' permet de d'ajouter sans supprimer le contenu de la bdd
