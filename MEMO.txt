@@ -1,2 +1,5 @@
-commande php bin/console debug:autowiring  
-    = Permet de lister les classes que l'on peut injecter comme dépendance (dans nos classe ou fonctions)
+commandes
+    php bin/console debug:autowiring  
+        = Permet de lister les classes que l'on peut injecter comme dépendance (dans nos classe ou fonctions)
+    php bin/console make:form
+        = Création d'un formulaire (le nom doit obligatoirement finir par "Type"), puis l'entité à laquelle il sera rattaché

@@ -1,0 +1,10 @@
+# Traduction des champs de formulaire d'un bien (property), voir fichier translation.yaml (default_locale: fr), et le formulaire "PropertyType"
+Title: Titre
+Rooms: Pièces
+Bedrooms: Chambres
+Floor: Etage
+Price: Prix
+Heat: Chauffage
+City : Ville
+Address: adresse
+Postal code: Code Postal

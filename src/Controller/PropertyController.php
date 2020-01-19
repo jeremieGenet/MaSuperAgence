@@ -1,12 +1,9 @@
 <?php
 namespace App\Controller;
 
-//use Twig\Environment;
 use App\Entity\Property;
 use App\Repository\PropertyRepository;
-
 use Doctrine\ORM\EntityManagerInterface;
-
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,8 +35,11 @@ class PropertyController extends AbstractController
      */
     public function index(): Response
     {
+        $properties = $this->repository->findAll();
+
         // Affichage (rendu) dans index.html.twig avec un param (current_menu, pour donner la classe active au menu)
         return $this->render('property/index.html.twig', [
+            'properties' => $properties,
             'current_menu' => 'properties'
         ]);
     }
