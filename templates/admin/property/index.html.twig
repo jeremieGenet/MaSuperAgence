@@ -1,3 +1,7 @@
+{#  
+    ADMINISTRATION DE L'ENSEMBLE DES BIENS ("/admin" = index() de Admin/AdminPropertyController.php)
+#}
+
 {% extends "base.html.twig" %}
 
 {% block title 'Gestion des biens' %}
@@ -13,12 +17,15 @@
             </div>
         {% endfor %}
 
+        <div class="text-right">
+            <a href="{{ path('admin.property.new') }}" class="btn btn-primary">Créer un nouveau bien</a>
+        </div>
 
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <tr>Titre</tr>
-                    <th>Action</th>
+                    <th>Titre</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             {% for property in properties %}
@@ -36,10 +43,6 @@
             </tbody>
             {% endfor %}
         </table>
-
-        <div class="text-right">
-            <a href="{{ path('admin.property.new') }}" class="btn btn-primary">Créer un nouveau bien</a>
-        </div>
 
     </div>
     

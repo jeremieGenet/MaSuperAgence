@@ -1,7 +1,11 @@
 commandes
+    php bin/console
+        = Permet d'avoir le récap de toutes les commandes symfony proposées par l'invite de commande 
+    php bin/console cache:clear
+        = Nettoyer le cache de l'application
     php bin/console debug:autowiring  
         = Permet de lister les classes que l'on peut injecter comme dépendance (dans nos classe ou fonctions)
     php bin/console make:form
         = Création d'un formulaire (le nom doit obligatoirement finir par "Type"), puis l'entité à laquelle il sera rattaché
-    php bin/console doctrine:fixture:load -apend
+    php bin/console doctrine:fixture:load -append
         = Validation d'une fixture (pour remplir la bdd) mais le drapeau '--append' permet de d'ajouter sans supprimer le contenu de la bdd

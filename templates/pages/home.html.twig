@@ -1,3 +1,7 @@
+{#  
+    ACCUEIL DU SITE : PRESENTATION DES DERNIER BIEN ("/" = index() de HomeController.php)
+#}
+
 {% extends "base.html.twig" %}
 
 {% block title 'Themelio' %}
@@ -11,7 +15,7 @@
         </p>
     </div>
     <div class="container">
-        <h2>Les derniers biens</h2>
+        <h2 class="text-center mb-4"><strong>Nos derniers biens</strong></h2>
         <div class="row flex">
             {% for property in properties %}
                 <div class="col-3">

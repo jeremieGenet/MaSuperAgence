@@ -1,0 +1,23 @@
+<!-- AFFICHAGE D'UN BIEN -->
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title text-center">
+            <!-- Lien vers le bien cliqué -->
+            <a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">
+                <!-- Revient à écrire property.getTitle() (c'est twig qui fait le lien entre le nom et la méthode) -->
+                <!-- TITRE -->
+                {{ property.title }} 
+            </a>
+        </h5>
+        <!-- DESCRIPTION -->
+        <p class="card-text">{{ property.description | nl2br }}</p>
+        <!-- SURFACE -->
+        <p class="card-text ">{{ property.surface }} m² </p>
+        <!-- VILLE ET CODE POSTAL -->
+        <p class="card-text "> {{ property.city }} - ({{ property.postalCode }}) </p>
+        <div class="text-primary text-center" style="font-weight: bold; font-size: 2rem;"> 
+            <!-- PRIX -->
+            {{ property.getFormatedPrice }} €
+        </div>
+    </div>
+</div>
