@@ -9,3 +9,14 @@ commandes
         = Création d'un formulaire (le nom doit obligatoirement finir par "Type"), puis l'entité à laquelle il sera rattaché
     php bin/console doctrine:fixture:load -append
         = Validation d'une fixture (pour remplir la bdd) mais le drapeau '--append' permet de d'ajouter sans supprimer le contenu de la bdd
+    phi bin/console make:crud Option
+        = Permet de générer un controleur automatiquement à partir d'une entité (CRUD, create, update, delete)
+    php bin/console doctrine:migrations:status
+        = Permet de récup les informations concernant les migration (la migration actuelle, mais surtout la dernière migration pour revenir en arrière)
+        (php bin/console doctrine:migrations:migrate 20200119124502) => commande pour back-up à un numéro de migration choisi
+    
+
+
+
+    git remote add origin https://github.com/jeremieGenet/MaSuperAgence.git
+    git push -u origin master

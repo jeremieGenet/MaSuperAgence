@@ -1,0 +1,13 @@
+{# Création de notre formulaire (nommé "form" dans les params de la méthode "edit()" de AdminPropertyController() #}
+
+{# FORMULAIRE DE CREATION / EDITION D'UN BIEN #}
+{{ form_start(form) }}
+    
+    <div class="row">
+        <div class="col-md-4">{{ form_row(form.name) }}</div>
+    </div>
+    
+    {{ form_rest(form) }} 
+    {# Boutton qui prend par défaut la valeur enregister (mais que est défini dans les param d'inclusion comme Editer ou Créer#}
+    <button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
+{{ form_end(form) }}

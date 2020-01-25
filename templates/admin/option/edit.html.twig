@@ -9,18 +9,11 @@
 {% block body %}
 
     <div class="container mt-4">
-        <h2>Editer le bien</h2>
+        <h2>Editer les options du bien</h2>
 
         {# FORMULAIRE D'EDITION D'UN BIEN #}
-        {{ include('admin/property/_form.html.twig', {form: form, button: 'Editer'}) }}
+        {{ include('admin/option/_form.html.twig', {form: form, button: 'Editer'}) }}
 
     </div>
 
-{% endblock %}
-
-
-{% block stylesheets %}{% endblock %}
-
-{% block javascripts %}
-    <!-- Javascript (cdn) champ SELECT (librairie cdnjs.com) qui se trouve dans 'base.html.twig --> 
 {% endblock %}

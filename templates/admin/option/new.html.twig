@@ -1,0 +1,19 @@
+{#  
+    ADMINISTRATION : CREATION D'UNE OPTION DE BIEN ("/admin/option/create" = new() de Admin/AdminPropertyController.php)
+#}
+
+{% extends "base.html.twig" %}
+
+{% block title 'Création d\'une nouvelle Option' %}
+
+{% block body %}
+
+    <div class="container mt-4">
+        <h2>Créer une Option</h2>
+        
+        {# FORMULAIRE DE CREATION D'UN BIEN #}
+        {{ include('admin/option/_form.html.twig', {form: form, button: 'Créer'}) }}
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{#  
+    ADMINISTRATION DE L'ENSEMBLE DES BIENS ("/admin" = index() de Admin/AdminPropertyController.php)
+#}
+
+{% extends "base.html.twig" %}
+
+{% block title 'Gestion des Options des biens' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Gérer les Options des biens</h1>
+
+        {# AFFICHAGE DES MESSAGES FLASH #}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <div class="text-right">
+            <a href="{{ path('admin_option_new') }}" class="btn btn-primary">Créer une nouvelle Option</a>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            {% for option in options %}
+            <tbody>
+                <td> {{ option.name }} </td>
+                <td>
+                    <a href=" {{ path('admin_option_edit', {id: option.id}) }} " class="btn btn-secondary">Editer</a>
+                    <form method="POST" action="{{ path('admin_option_delete', {id: option.id}) }}" style="display: inline-block" onsubmit="return confirm('Supprimer le bien ?')">
+                        <input type="hidden" name="_method" value="DELETE">
+                        {# input caché qui sécurise la suppréssion (value = concaténation du mot 'delete' et de l'id du bien soit : delete2) #}
+                        <input type="hidden" name="_token", value="{{ csrf_token('delete' ~ option.id) }}">
+                        <button class="btn btn-danger">Supprimer</button>
+                    </form>
+                </td>
+            </tbody>
+            {% endfor %}
+        </table>
+
+    </div>
+    
+            
+       
+{% endblock %}

@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Option;
 use App\Entity\Property;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -21,6 +23,11 @@ class PropertyType extends AbstractType
             ->add('floor')
             ->add('price')
             ->add('heat', ChoiceType::class, ['choices' => $this->getChoices()]) // ajout du bouton select (utilisation de ChoiceType::class pour ajouter une option)
+            ->add('options', EntityType::class, [
+                'class' => Option::class, // On précise que le champs des options sera de type class et la classe Option
+                'choice_label' => 'name', 
+                'multiple' => true // On autorise plusieurs options à être sélectionnées
+            ])
             ->add('city')
             ->add('address')
             ->add('postal_code')

@@ -24,7 +24,7 @@
     <div class="row">
         <div class="col-md-2">{{ form_row(form.sold) }}</div>
     </div>
-    {{ form_widget(form) }} 
+    {{ form_rest(form) }} 
     {# Boutton qui prend par défaut la valeur enregister (mais que est défini dans les param d'inclusion comme Editer ou Créer#}
     <button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
 {{ form_end(form) }}

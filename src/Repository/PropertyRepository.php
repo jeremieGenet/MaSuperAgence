@@ -22,13 +22,14 @@ class PropertyRepository extends ServiceEntityRepository
         parent::__construct($registry, Property::class);
     }
     
-
+    // FILTRE DES BIENS
     // Récup tous les biens dont la propriété 'sold' = false, et en fonction du prix maximum et de la surface minimum
     // (retourne une requête)
     public function findAllVisibleQuery(PropertySearch $search): Query
     {
         $query = $this->findVisibleQuery();
 
+        // GESTION DE LA RECHERCHER POUR LE PRIX
         if($search->getMaxPrice()){
             $query = $query
                 ->andWhere('p.price <= :maxprice')
@@ -36,11 +37,24 @@ class PropertyRepository extends ServiceEntityRepository
             ;
         }
 
+        // GESTION DE LA RECHERCHER POUR LA SURFACE
         if($search->getMinSurface()){
             $query = $query
                 ->andWhere('p.surface <= :minsurface')
                 ->setParameter('minsurface', $search->getMinSurface())
             ;
+        }
+
+        // GESTION DE LA RECHERCHE AVEC OPTIONS
+        if($search->getOptions()->count() > 0){
+            $k = 0;
+            foreach($search->getOptions() as $k => $option){
+                $k++;
+                $query = $query
+                    ->andWhere(":option$k MEMBER OF p.options")
+                    ->setParameter("option$k", $option)
+                ;
+            }
         }
 
         return $query->getQuery();
