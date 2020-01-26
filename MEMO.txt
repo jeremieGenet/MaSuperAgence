@@ -14,9 +14,12 @@ commandes
     php bin/console doctrine:migrations:status
         = Permet de récup les informations concernant les migration (la migration actuelle, mais surtout la dernière migration pour revenir en arrière)
         (php bin/console doctrine:migrations:migrate 20200119124502) => commande pour back-up à un numéro de migration choisi
-    
 
 
+LIBRAIRIE SLUG           = composer require cocur/slugify (utilisé dans l'entité Property.php)
+LIBRAIRIE PAGINATION     = composer require knplabs/knp-paginator-bundle (utilisé dans PropertyController.php)
+LIBRAIRIE UPLOAD FICHIER = composer require vich/uploader-bundle (utilisé dans l'entité Property.php)
 
-    git remote add origin https://github.com/jeremieGenet/MaSuperAgence.git
-    git push -u origin master
+
+git remote add origin https://github.com/jeremieGenet/MaSuperAgence.git
+git push -u origin master

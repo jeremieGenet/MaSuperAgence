@@ -2,21 +2,26 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Property;
 use Doctrine\ORM\Mapping as ORM;
-use Cocur\Slugify\Slugify; // librairie ajoutée pour les slug
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
 
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Cocur\Slugify\Slugify; // librairie ajoutée pour les slug
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich; // librairie d'upload de fichier (utilisé directement sur le nom de la class Property)
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PropertyRepository")
  * @UniqueEntity("title")
+ * @Vich\Uploadable
  */
 class Property
 {
-
     // Contante Chauffage du bien
     const HEAT = [
         0 => 'Electrique',
@@ -30,6 +35,27 @@ class Property
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * Propriété qui représente le nom de l'image
+     * 
+     * @var string|null
+     * @ORM\Column(type="string", length=255)
+     */
+    private $filename;
+
+    /**
+     * Propriété qui représente une image (de type File, soit une ressource) et qui est utilisé pour le fonctionnement de l'upload du fichier
+     * 
+     * UPLOAD DE FICHIER (librairie vich/uploader-bundle)
+     * PARAMS Vich\UploadableField = (mapping="voir config/package/vich_uploader.yaml" et fileNameProperty="nom de la propriété de l'entité qui représente l'image")
+     *
+     * @Vich\UploadableField(mapping="property_image", fileNameProperty="filename")
+     * @Assert\Image(mimeTypes="image/jpeg")
+     * 
+     * @var File|null
+     */
+    private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -108,6 +134,11 @@ class Property
      * @ORM\ManyToMany(targetEntity="App\Entity\Option", inversedBy="properties")
      */
     private $options;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
 
 
     public function __construct()
@@ -318,6 +349,46 @@ class Property
             $option->removeProperty($this);
         }
 
+        return $this;
+    }
+
+
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    public function setFilename(?string $filename): Property
+    {
+        $this->filename = $filename;
+        return $this;
+    }
+
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile): Property
+    {
+        $this->imageFile = $imageFile;
+        // CONDITION POUR FAIRE PERSITER L'IMAGE (on met à jour le 'updated_at' pour que doctrine détecte un changement et déclanche la persistance des données)
+        if($this->imageFile instanceof UploadedFile){
+            $this->updated_at = new \DateTime('now');
+        }
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+        
         return $this;
     }
 }
