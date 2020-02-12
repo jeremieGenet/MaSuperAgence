@@ -1,0 +1,47 @@
+<!--
+    Mail d'envoi (lors du remplissage de formulaire de contact de l'utilisateur voir PorpertyController.php dans sa méthode show())
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Demande de contact</h1>
+
+    <table cellpadding="0" cellspacing="0" width="100%" border="0"> 
+        <tr>
+            <td>Nom du bien</td>
+            <td>
+                <a href="{{ url('property.show', {id: contact.property.id, slug: contact.property.slug}) }}">
+                    {{ contact.property.title }}
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>Prénom</td>
+            <td>{{ contact.firstname }}</td>
+        </tr>
+        <tr>
+            <td>Nom</td>
+            <td>{{ contact.lastname }}</td>
+        </tr>
+        <tr>
+            <td>Téléphone</td>
+            <td>{{ contact.phone }}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{ contact.email }}</td>
+        </tr>
+        <tr>
+            <td>Message</td>
+            <td>{{ contact.message | nl2br }}</td>
+        </tr>
+    </table>
+</body>
+</html>

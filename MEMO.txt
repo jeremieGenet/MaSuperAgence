@@ -16,9 +16,9 @@ commandes
         (php bin/console doctrine:migrations:migrate 20200119124502) => commande pour back-up à un numéro de migration choisi
 
 
-LIBRAIRIE SLUG           = composer require cocur/slugify (utilisé dans l'entité Property.php)
-LIBRAIRIE PAGINATION     = composer require knplabs/knp-paginator-bundle (utilisé dans PropertyController.php)
-LIBRAIRIE UPLOAD FICHIER = composer require vich/uploader-bundle (utilisé dans l'entité Property.php)
+LIBRAIRIE SLUG               = composer require cocur/slugify (utilisé dans l'entité Property.php)
+LIBRAIRIE PAGINATION         = composer require knplabs/knp-paginator-bundle (utilisé dans PropertyController.php)
+LIBRAIRIE UPLOAD DE FICHIERS = composer require vich/uploader-bundle (utilisé dans l'entité Property.php) (permet d'upload un fichier et le rattacher à une entité)
 
 
 git remote add origin https://github.com/jeremieGenet/MaSuperAgence.git

@@ -28,6 +28,22 @@
                                     {{ property.title }} 
                                 </a>
                             </h5>
+                            
+                            <!-- IMAGE (si elle est présente) -->
+                            {% if property.filename %}
+
+                                {# Deux façons d'afficher l'image : 
+                                    1. la première classic (commentée), 
+                                    2. la seconde c'est la librairie d'upload de fichiers qui le permet (param 1 = l'entité ciblée, param 2 = le nom de la propriété de l'entité ciblée)
+                                #}
+                                <!--<img src="/images/properties/{{ property.filename }}" alt="card-img-top" style="width: 100%; height:auto"> -->
+                                <img src="{{ vich_uploader_asset(property, 'imageFile') }}" class="card-img-top" style="width: 100%; height:auto">
+                                
+                            {% else %}
+                                <!-- IMAGE PAR DEFAUT (si le bien ne posséde pas d'image), celle-ci doit être stockée -->
+                                <img src="{{ '/images/properties/empty.jpg' }}" class="card-img-top" style="width: 100%; height:auto">
+                            {% endif %}
+
                             <p class="card-text"> {{ property.city }} ({{ property.postalCode }}) </p>
                             <div class="text-primary" style="font-weight: bold; font-size: 2rem;"> 
                                 {{ property.getFormatedPrice }} €
