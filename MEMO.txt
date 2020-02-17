@@ -20,6 +20,22 @@ LIBRAIRIE SLUG               = composer require cocur/slugify (utilisé dans l'e
 LIBRAIRIE PAGINATION         = composer require knplabs/knp-paginator-bundle (utilisé dans PropertyController.php)
 LIBRAIRIE UPLOAD DE FICHIERS = composer require vich/uploader-bundle (utilisé dans l'entité Property.php) (permet d'upload un fichier et le rattacher à une entité)
 
+LIBRAIRIE JS du bouton Select (via npm et nodeJs) = npm install select2
+
+WEBPACK(javascript) = composer require symfony/webpack-encore-bundle
 
 git remote add origin https://github.com/jeremieGenet/MaSuperAgence.git
 git push -u origin master
+
+
+<!-- Javascript (compilé par webpack, via asset()) avec notament le champs SELECT (librairie cdnjs.com) -->
+<script src="{{ asset('build/app.js') }}"></script>
+
+<!-- Javascript (cdn) champs SELECT (librairie cdnjs.com) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/js/select2.min.js"></script>
+<script>
+    $('select').select2();
+</script>
+
+<!-- STYLE CSS (style compilé par webpack dans le dossier public/build/manifest.json) après css bootstrap -->
+<link rel="stylesheet" href="{{ asset('build/app.css')}}">
