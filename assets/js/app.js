@@ -9,7 +9,11 @@
 require('../css/app.css');
 
 // FICHIER JS A CHARGER
-require('../js/monJs.js');
+
+// Affichage de formulaire pour contacter l'agence
+require('../js/formContact.js');
+// Suppression des images dans le formulaire de modif d'un bien dans l'administration
+require('../js/deletePicture.js');
 
 
 

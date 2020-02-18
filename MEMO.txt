@@ -28,14 +28,3 @@ git remote add origin https://github.com/jeremieGenet/MaSuperAgence.git
 git push -u origin master
 
 
-<!-- Javascript (compilé par webpack, via asset()) avec notament le champs SELECT (librairie cdnjs.com) -->
-<script src="{{ asset('build/app.js') }}"></script>
-
-<!-- Javascript (cdn) champs SELECT (librairie cdnjs.com) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/js/select2.min.js"></script>
-<script>
-    $('select').select2();
-</script>
-
-<!-- STYLE CSS (style compilé par webpack dans le dossier public/build/manifest.json) après css bootstrap -->
-<link rel="stylesheet" href="{{ asset('build/app.css')}}">

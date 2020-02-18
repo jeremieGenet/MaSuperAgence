@@ -2,23 +2,20 @@
 
 namespace App\Entity;
 
+use App\Entity\Picture;
 use App\Entity\Property;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Cocur\Slugify\Slugify; // librairie ajoutée pour les slug
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Vich\UploaderBundle\Mapping\Annotation as Vich; // librairie d'upload de fichier (utilisé directement sur le nom de la class Property)
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PropertyRepository")
  * @UniqueEntity("title")
- * @Vich\Uploadable
  */
 class Property
 {
@@ -35,27 +32,6 @@ class Property
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * Propriété qui représente le nom de l'image
-     * 
-     * @var string|null
-     * @ORM\Column(type="string", length=255)
-     */
-    private $filename;
-
-    /**
-     * Propriété qui représente une image (de type File, soit une ressource) et qui est utilisé pour le fonctionnement de l'upload du fichier
-     * 
-     * UPLOAD DE FICHIER (librairie vich/uploader-bundle)
-     * PARAMS Vich\UploadableField = (mapping="voir config/package/vich_uploader.yaml" et fileNameProperty="nom de la propriété de l'entité qui représente l'image")
-     *
-     * @Vich\UploadableField(mapping="property_image", fileNameProperty="filename")
-     * @Assert\Image(mimeTypes="image/jpeg")
-     * 
-     * @var File|null
-     */
-    private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -140,11 +116,25 @@ class Property
      */
     private $updated_at;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="property", orphanRemoval=true, cascade={"persist"})
+     */
+    private $pictures;
+
+    /**
+     * Représente les images du bien (la collection d'images)
+     * @Assert\All({
+     *  @Assert\Image(mimeTypes="image/jpeg")
+     * })
+     */
+    private $pictureFiles;
+
 
     public function __construct()
     {
         $this->created_at = new \DateTime();
         $this->options = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
     }
 
 
@@ -353,33 +343,6 @@ class Property
     }
 
 
-    public function getFilename(): ?string
-    {
-        return $this->filename;
-    }
-
-    public function setFilename(?string $filename): Property
-    {
-        $this->filename = $filename;
-        return $this;
-    }
-
-
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
-    public function setImageFile(?File $imageFile): Property
-    {
-        $this->imageFile = $imageFile;
-        // CONDITION POUR FAIRE PERSITER L'IMAGE (on met à jour le 'updated_at' pour que doctrine détecte un changement et déclanche la persistance des données)
-        if($this->imageFile instanceof UploadedFile){
-            $this->updated_at = new \DateTime('now');
-        }
-        return $this;
-    }
-
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updated_at;
@@ -389,6 +352,63 @@ class Property
     {
         $this->updated_at = $updated_at;
         
+        return $this;
+    }
+
+    /**
+     * @return Collection|Picture[]
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+    // Retourne la première image de la collection ou null si la collection est vide
+    public function getPicture(): ?Picture
+    {
+        if($this->pictures->isEmpty()){
+            return null;
+        }
+        return $this->pictures->first();
+        
+    }
+    // Ajoute une image à la collection d'images
+    public function addPicture(Picture $picture): self
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures[] = $picture;
+            $picture->setProperty($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): self
+    {
+        if ($this->pictures->contains($picture)) {
+            $this->pictures->removeElement($picture);
+            // set the owning side to null (unless already changed)
+            if ($picture->getProperty() === $this) {
+                $picture->setProperty(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
+    public function getPictureFiles()
+    {
+        return $this->pictureFiles;
+    }
+    public function setPictureFiles($pictureFiles): self
+    {
+        // Parcours de chaque image pour les ajouter à la collection d'images
+        foreach($pictureFiles as $pictureFile){
+            $picture = new Picture();
+            $picture->setImageFile($pictureFile);
+            $this->addPicture($picture);
+        }
+        $this->pictureFiles = $pictureFiles;
         return $this;
     }
 }

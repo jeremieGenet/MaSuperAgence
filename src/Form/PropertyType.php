@@ -30,8 +30,9 @@ class PropertyType extends AbstractType
                 'choice_label' => 'name', 
                 'multiple' => true // On autorise plusieurs options à être sélectionnées
             ])
-            ->add('imageFile', FileType::class, [
-                'required' => false
+            ->add('pictureFiles', FileType::class, [
+                'required' => false,
+                'multiple' => true
             ])
             ->add('city')
             ->add('address')

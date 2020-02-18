@@ -1,18 +1,10 @@
 <!-- HTML POUR L'AFFICHAGE D'UN BIEN -->
 <div class="card">
     <!-- IMAGE (si elle est présente) -->
-    {% if property.filename %}
-
-        {# Deux façons d'afficher l'image : 
-            1. la première classic (commentée), 
-            2. la seconde c'est la librairie d'upload de fichiers qui le permet (param 1 = l'entité ciblée, param 2 = le nom de la propriété de l'entité ciblée)
-        #}
-        <!--<img src="/images/properties/{{ property.filename }}" alt="card-img-top" style="width: 100%; height:auto"> -->
-        <img src="{{ vich_uploader_asset(property, 'imageFile') }}" class="card-img-top" style="width: 100%; height:auto">
-        
+    {% if property.picture %}
+        <img src="{{ vich_uploader_asset(property.picture, 'imageFile') }}" class="card-img-top" alt="">
     {% else %}
-        <!-- IMAGE PAR DEFAUT (si le bien ne posséde pas d'image), celle-ci doit être stockée -->
-        <img src="{{ '/images/properties/empty.jpg' }}" class="card-img-top" style="width: 100%; height:auto">
+        <img src="{{ '/images/properties/empty.jpg' }}" class="card-img-top" alt="">
     {% endif %}
 
     <div class="card-body">
